@@ -8,8 +8,7 @@ import { UsersModule } from './modules/users/users.module';
     AuthModule,
     UsersModule,
     MongooseModule.forRoot(
-      process.env.MONGO_URI ||
-        'mongodb+srv://norms777666:smodsmod@cluster0.oueayxs.mongodb.net/truck-driver',
+      'mongodb+srv://norms777666:smodsmod@cluster0.oueayxs.mongodb.net/truck-driver',
     ),
   ],
 })
