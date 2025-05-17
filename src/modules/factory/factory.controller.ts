@@ -47,8 +47,8 @@ export class FactoryController {
     description: 'Фабрика успешно создана',
     type: FactoryCreateDto,
   })
-  async create(@Body() createFactoryDto: FactoryCreateDto) {
-    return this.factoryService.create(createFactoryDto);
+  async create(@Body() dto: FactoryCreateDto) {
+    return this.factoryService.create(dto);
   }
 
   @Put(':id')
@@ -60,9 +60,9 @@ export class FactoryController {
   })
   async update(
     @Param('id') id: string,
-    @Body() updateFactoryDto: FactoryUpdateDto,
+    @Body() dto: FactoryUpdateDto,
   ) {
-    return this.factoryService.update(id, updateFactoryDto);
+    return this.factoryService.update(id, dto);
   }
 
   @Delete(':id')
