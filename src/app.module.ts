@@ -9,7 +9,7 @@ import { UsersModule } from './modules/users/users.module';
     UsersModule,
     MongooseModule.forRoot(
       process.env.MONGO_URI ||
-        'mongodb+srv://norms777666:smodsmod@cluster0.oueayxs.mongodb.net/',
+        'mongodb+srv://norms777666:smodsmod@cluster0.oueayxs.mongodb.net/truck-driver',
     ),
   ],
 })
