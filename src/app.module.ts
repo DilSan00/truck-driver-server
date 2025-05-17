@@ -8,7 +8,7 @@ import { UsersModule } from './modules/users/users.module';
     AuthModule,
     UsersModule,
     MongooseModule.forRoot(
-      'mongodb+srv://norms777666:<smodsmod>@cluster0.oueayxs.mongodb.net/',
+      'mongodb+srv://norms777666:<db_password>@cluster0.oueayxs.mongodb.net/truck-driver?retryWrites=true&w=majority&appName=Cluster0',
     ),
   ],
 })
