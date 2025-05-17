@@ -30,4 +30,8 @@ export class FactoryService {
   ): Promise<FactoryDocument | null> {
     return this.factoryModel.findByIdAndUpdate(id, dto, { new: true }).exec();
   }
+
+  async remove(id: string): Promise<FactoryDocument | null> {
+    return this.factoryModel.findByIdAndDelete(id).exec();
+  }
 }

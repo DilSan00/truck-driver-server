@@ -30,4 +30,8 @@ export class WorkshopService {
   ): Promise<WorkshopDocument | null> {
     return this.workshopModel.findByIdAndUpdate(id, dto, { new: true }).exec();
   }
+
+  async remove(id: string): Promise<WorkshopDocument | null> {
+    return this.workshopModel.findByIdAndDelete(id).exec();
+  }
 }

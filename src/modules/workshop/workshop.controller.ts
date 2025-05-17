@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { WorkshopService } from './workshop.service';
 import { WorkshopCreateDto } from './dto/workshop-create.dto';
 import { WorkshopUpdateDto } from './dto/workshop-update.dto';
@@ -34,16 +42,32 @@ export class WorkshopController {
 
   @Post()
   @ApiOperation({ summary: 'Создать мастерскую' })
+  @ApiResponse({
+    status: 201,
+    description: 'Мастерская успешно создана',
+    type: WorkshopCreateDto,
+  })
   async create(@Body() createWorkshopDto: WorkshopCreateDto) {
     return this.workshopService.create(createWorkshopDto);
   }
 
   @Put(':id')
   @ApiOperation({ summary: 'Обновить название мастерской' })
+  @ApiResponse({
+    status: 200,
+    description: 'Мастерская успешно обновлена',
+    type: WorkshopUpdateDto,
+  })
   async update(
     @Param('id') id: string,
     @Body() updateWorkshopDto: WorkshopUpdateDto,
   ) {
     return this.workshopService.update(id, updateWorkshopDto);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Удалить мастерскую' })
+  async remove(@Param('id') id: string) {
+    return this.workshopService.remove(id);
   }
 }
