@@ -18,7 +18,7 @@ async function bootstrap() {
     }),
   );
 
-  // app.enableCors();
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('Internet Service API')
