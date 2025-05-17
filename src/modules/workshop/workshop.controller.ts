@@ -47,8 +47,8 @@ export class WorkshopController {
     description: 'Мастерская успешно создана',
     type: WorkshopCreateDto,
   })
-  async create(@Body() createWorkshopDto: WorkshopCreateDto) {
-    return this.workshopService.create(createWorkshopDto);
+  async create(@Body() dto: WorkshopCreateDto) {
+    return this.workshopService.create(dto);
   }
 
   @Put(':id')
@@ -60,9 +60,9 @@ export class WorkshopController {
   })
   async update(
     @Param('id') id: string,
-    @Body() updateWorkshopDto: WorkshopUpdateDto,
+    @Body() dto: WorkshopUpdateDto,
   ) {
-    return this.workshopService.update(id, updateWorkshopDto);
+    return this.workshopService.update(id, dto);
   }
 
   @Delete(':id')
