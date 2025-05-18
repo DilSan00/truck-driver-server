@@ -65,8 +65,8 @@ export class TransportService {
     const saved = (await this.transportModel.create({
       userId,
       name: dto.name ?? 'Без названия',
-      suppliers: [dto.suppliers],
-      consumers: [dto.consumers],
+      suppliers: dto.suppliers,
+      consumers: dto.consumers,
       costMatrix: dto.costMatrix,
       allocation: result.allocation,
       totalCost: result.totalCost,

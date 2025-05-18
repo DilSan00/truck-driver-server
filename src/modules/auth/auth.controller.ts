@@ -13,7 +13,7 @@ import { AdminGuard } from './admin.guard';
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
   ) {}
 
   @Post('register')
@@ -28,6 +28,11 @@ export class AuthController {
   async login(@Body() dto: LoginDto) {
     const token = await this.authService.login(dto);
     return { access_token: token };
+  }
+
+  @Get('users')
+  async getUsers() {
+    return this.usersService.findAll();
   }
 
   @UseGuards(JwtAuthGuard)

@@ -4,6 +4,13 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class SolveTransportDto {
   @ApiProperty({
+    description: 'ID пользователя',
+    example: '68286f3f7ad657f6cdfbfda2',
+  })
+  @IsString()
+  userId: string;
+
+  @ApiProperty({
     description: 'Массив предложений (количество товара у поставщиков)',
     example: [100, 200, 300],
     type: [Number],

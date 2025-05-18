@@ -22,8 +22,8 @@ export class TransportHistoryService {
       variantId,
       name: dto.name ?? 'Без названия',
       method: dto.method,
-      suppliers: [dto.suppliers],
-      consumers: [dto.consumers],
+      suppliers: dto.suppliers,
+      consumers: dto.consumers,
       costMatrix: dto.costMatrix,
       allocation: result.allocation,
       totalCost: result.totalCost,
@@ -32,6 +32,14 @@ export class TransportHistoryService {
 
   async getUserHistory(userId: string) {
     return this.historyModel.find({ userId }).sort({ createdAt: -1 });
+  }
+
+  async getUserHistoryById(id: string, userId: string) {
+    const history = await this.historyModel.findOne({ _id: id, userId }).exec();
+    if (!history) {
+      throw new Error('История не найдена или не принадлежит пользователю');
+    }
+    return history;
   }
 
   async getVariantHistory(variantId: string) {

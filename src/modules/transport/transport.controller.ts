@@ -24,15 +24,29 @@ export class TransportController {
     return this.historyService.getUserHistory(userId);
   }
 
+  @Get('history/:userId/:id')
+  @ApiOperation({ summary: 'Получить конкретную историю заказа' })
+  @ApiResponse({
+    status: 200,
+    description: 'История заказа успешно получена',
+    type: HistoryResponseDto,
+  })
+  async getHistoryById(
+    @Param('userId') userId: string,
+    @Param('id') id: string,
+  ) {
+    return this.historyService.getUserHistoryById(id, userId);
+  }
+
   @Post('solve')
   @ApiOperation({
     summary: 'Решить транспортную задачу',
     description:
-      'Решает транспортную задачу с использованием указанного метода',
+      'Решает транспортную задачу с использованием указанного метода и сохраняет в историю',
   })
   @ApiResponse({
     status: 200,
-    description: 'Транспортная задача успешно решена',
+    description: 'Транспортная задача успешно решена и сохранена',
     schema: {
       type: 'object',
       properties: {
@@ -61,7 +75,10 @@ export class TransportController {
       },
     },
   })
-  solve(@Body() dto: SolveTransportDto) {
-    return this.transportService.solve(dto);
+  async solve(@Body() dto: SolveTransportDto) {
+    if (!dto.userId) {
+      throw new Error('userId is required');
+    }
+    return this.transportService.solveAndSave(dto, dto.userId);
   }
 }

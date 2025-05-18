@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class HistoryResponseDto {
+  @ApiProperty({ description: 'ID истории' })
+  _id: string;
+
   @ApiProperty({ description: 'ID пользователя' })
   userId: string;
 
@@ -17,25 +20,19 @@ export class HistoryResponseDto {
     description: 'Массив поставщиков',
     type: 'array',
     items: {
-      type: 'array',
-      items: {
-        type: 'number',
-      },
+      type: 'number',
     },
   })
-  suppliers: number[][];
+  suppliers: number[];
 
   @ApiProperty({
     description: 'Массив потребителей',
     type: 'array',
     items: {
-      type: 'array',
-      items: {
-        type: 'number',
-      },
+      type: 'number',
     },
   })
-  consumers: number[][];
+  consumers: number[];
 
   @ApiProperty({
     description: 'Матрица затрат',
