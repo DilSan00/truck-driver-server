@@ -16,9 +16,7 @@ import { TransportModule } from './modules/transport/transport.module';
     FactoryModule,
     WorkshopModule,
     TransportModule,
-    MongooseModule.forRoot(
-      'mongodb+srv://norms777666:smodsmod@cluster0.oueayxs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-    ),
+    MongooseModule.forRoot('mongodb://localhost:27017/truck'),
   ],
 })
 export class AppModule {}

@@ -2,17 +2,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { SolveTransportDto } from './dto/solve-transport.dto';
-import { Model } from 'mongoose';
+import { Model, Document } from 'mongoose';
 import {
   TransportVariant,
   TransportVariantDocument,
 } from './schemas/transport-variant.schema';
+import { TransportHistoryService } from './transport-history.service';
 
 @Injectable()
 export class TransportService {
   constructor(
     @InjectModel(TransportVariant.name)
     private readonly transportModel: Model<TransportVariantDocument>,
+    private readonly historyService: TransportHistoryService,
   ) {}
 
   solve(dto: SolveTransportDto) {
@@ -60,7 +62,7 @@ export class TransportService {
   async solveAndSave(dto: SolveTransportDto, userId: string) {
     const result = this.solve(dto);
 
-    const saved = await this.transportModel.create({
+    const saved = (await this.transportModel.create({
       userId,
       name: dto.name ?? 'Без названия',
       suppliers: [dto.suppliers],
@@ -68,7 +70,15 @@ export class TransportService {
       costMatrix: dto.costMatrix,
       allocation: result.allocation,
       totalCost: result.totalCost,
-    });
+    })) as Document & { _id: { toString(): string } };
+
+    // Сохраняем в историю
+    await this.historyService.createHistory(
+      userId,
+      saved._id.toString(),
+      dto,
+      result,
+    );
 
     return saved;
   }
